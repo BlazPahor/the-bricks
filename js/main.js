@@ -24,16 +24,17 @@ function drawIt() {
     var PADDING;
     var tocke; //deklaracija spremenljivke
     var dilan;
-    var canvasMinX;
-    var canvasMaxX;
     var colors = ["#fc03ec", "black"];
-    var pickaxe = new Image();
-    pickaxe.src = "img/pickax.png";
     var start = true;
     var temp;
     var gover = true;
+    var mousemov = false;
+    var timerTemp = 1;
     var gameWin = false;
+    var isClicked = false;
 
+    sword = new Image();
+    sword.src = 'images/pickax.png';
 
     function init() {
         ctx = $('#canvas')[0].getContext("2d");
@@ -50,7 +51,8 @@ function drawIt() {
         ctx.arc(x, y, r, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.fill();
-        ctx.drawImage = (pickaxe);
+        ctx.fillStyle = "black";
+
     }
 
     function rect(x, y, w, h) {
@@ -106,6 +108,9 @@ function drawIt() {
             dy = -dy;
             bricks[row][col] = 0;
             tocke += 1;
+            if (tocke >= 25) {
+                gameWin = true;
+            }
             $("#tocke").html(tocke);
         }
         if (x + dx > WIDTH - r || x + dx < r)
@@ -162,26 +167,20 @@ function drawIt() {
 
     function gamewon() {
         clear();
-        ctx.fillStyle = "black";
-        ctx.font = "bold 72px sans-serif";
-        ctx.fillText("You Won!", WIDTH / 2 - 200, HEIGHT / 2);
-        ctx.font = "bold 36px sans-serif";
-        ctx.fillText("Score: " + tocke, WIDTH / 2 - 200, HEIGHT / 2 + 100);
-        ctx.fillText("Time: " + izpisTimer, WIDTH / 2 - 200, HEIGHT / 2 + 150);
+        ctx.fillStyle = "white";
+        ctx.font = "bold 60px sans-serif";
+        ctx.fillText("You collected all diamons!", WIDTH / 2 - 200, HEIGHT / 2);
+
         start = true;
-        dx = 0;
-        dy = 0;
-        //stop the timer
-        clearInterval(intTimer);
-        paddlex = -100;
-        paddlew = 0;
-        paddleh = 0;
+
+
     }
 
     function init_paddle() {
         paddlex = WIDTH / 2;
         paddleh = 10;
         paddlew = 75;
+
     }
 
     function onKeyDown(evt) {
