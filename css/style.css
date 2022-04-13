@@ -1,0 +1,49 @@
+body {
+    background-image: url(../images/4005463.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    place-items: center;
+    display: grid;
+    color: white;
+}
+
+.canvas {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    position: relative;
+    padding: 10px;
+    border: 3px solid #000000;
+    backdrop-filter: blur(2px);
+}
+
+.tocke {
+    position: absolute;
+    top: 0px;
+    left: 100%;
+    width: 100px;
+    height: 320px;
+    padding: 45px;
+    border: 3px solid #000000;
+    backdrop-filter: blur(2px);
+}
+
+.diamond {
+    height: 32px;
+    width: auto;
+}
+
+.refresh {
+    position: relative;
+    background-color: black;
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+    margin-top: 300px;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+}
