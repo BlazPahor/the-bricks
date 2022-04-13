@@ -32,9 +32,12 @@ function drawIt() {
     var timerTemp = 1;
     var gameWin = false;
     var isClicked = false;
-
-    sword = new Image();
-    sword.src = 'images/pickax.png';
+    //timer
+    var sekunde;
+    var sekundeI;
+    var minuteI;
+    var intTimer;
+    var izpisTimer;
 
     function init() {
         ctx = $('#canvas')[0].getContext("2d");
@@ -44,6 +47,11 @@ function drawIt() {
         // dodajanje kode v metodo init
         tocke = 0;
         $("#tocke").html(tocke);
+        sekunde = 0;
+        izpisTimer = "00:00";
+        intTimer = setInterval(timer, 1000);
+        sekunde = 0;
+        izpisTimer = "00:00";
     }
 
     function circle(x, y, r) {
@@ -119,14 +127,12 @@ function drawIt() {
         if (y + dy < r)
             dy = -dy;
         else if (y + dy > HEIGHT - r) {
-            //Odboj kroglice, ki je odvisen od odboja od ploščka 
             if (x > paddlex && x < paddlex + paddlew) {
                 dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
                 dy = -dy;
             } else {
                 start = false;
-                //clearInterval(IntervalId);
-                //console.log("Game Over");
+
                 gover = false;
             }
         }
@@ -136,10 +142,7 @@ function drawIt() {
 
         if (gameWin == true) {
             gamewon();
-            if (spc == 1) {
-                snd3.play();
-                spc++;
-            }
+
         }
         if (start == false) {
             gameover();
@@ -163,17 +166,18 @@ function drawIt() {
         ctx.font = "bold 60px sans-serif";
         ctx.fillText("YOU FAILED!", WIDTH / 2 - 200, HEIGHT / 2);
         start = true;
+        clearInterval(intTimer);
+        paddlex = -100;
+        paddlew = 0;
+        paddleh = 0;
     }
 
     function gamewon() {
         clear();
         ctx.fillStyle = "white";
         ctx.font = "bold 60px sans-serif";
-        ctx.fillText("You collected all diamons!", WIDTH / 2 - 200, HEIGHT / 2);
-
+        ctx.fillText("NICE JOB!", WIDTH / 2 - 200, HEIGHT / 2);
         start = true;
-
-
     }
 
     function init_paddle() {
@@ -194,6 +198,7 @@ function drawIt() {
             rightDown = false;
         else if (evt.keyCode == 37) leftDown = false;
     }
+
     $(document).keydown(onKeyDown);
     $(document).keyup(onKeyUp);
 
@@ -225,12 +230,23 @@ function drawIt() {
     }
     $(document).mousemove(onMouseMove);
 
-
-
+    //timer
+    function timer() {
+        if (start == true) {
+            sekunde++;
+            sekundeI = ((sekundeI = (sekunde % 60)) > 9) ? sekundeI : "0" + sekundeI;
+            minuteI = ((minuteI = Math.floor(sekunde / 60)) > 9) ? minuteI : "0" + minuteI;
+            izpisTimer = minuteI + ":" + sekundeI;
+            $("#cas").html(izpisTimer);
+        } else {
+            sekunde = 0;
+            //izpisTimer = "00:00";
+            $("#cas").html(izpisTimer);
+        }
+    }
 
     init();
     init_paddle();
     initbricks();
     init_mouse();
-
 }

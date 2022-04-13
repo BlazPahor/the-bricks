@@ -5,18 +5,28 @@
     <link rel="icon" href="images/diamond.png" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
     </script>
-
+    <script type="text/javascript">
+        function togglePlay() {
+            var myAudio = document.getElementById("myAudio");
+            return myAudio.paused ? myAudio.play() : myAudio.pause();
+        };
+    </script>
 
 </head>
 
 <body onload="drawIt()">
     <div class="canvas"> <canvas id="canvas" width="400" height="400"></canvas>
         <div class="tocke">
-            <img src="images/diamond.png" class="diamond"> : <mark id="tocke">0</mark>
-            <div><button class="refresh" onclick="refreshPage();">GO AGAIN</button></div>
+            <img src="images/diamond.png" class="diamond"><mark id="tocke">0</mark>
+            <p><img src="images/sandglass.png" class="sandglass"> <mark id="cas">00:00</mark></p>
+            <img class="refreshimg" src='images/restart.png' onclick='refreshPage();'>
+
         </div>
     </div>
+    <audio id="myAudio" src="audio/Runner.mp3" preload="auto">
+    </audio>
 
+    <input type="checkbox" id="button1" class="toggle-button" value="sound" onclick="togglePlay()">
 
 
     <script src="js/main.js"></script>

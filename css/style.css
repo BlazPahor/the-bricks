@@ -22,27 +22,90 @@ body {
     position: absolute;
     top: 0px;
     left: 100%;
-    width: 100px;
-    height: 320px;
-    padding: 45px;
+    width: 90px;
+    height: 420px;
     border: 3px solid #000000;
+    text-align: center;
+    transform: translate(0, -0.7%);
 }
 
 .diamond {
     height: 32px;
-    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding-top: 20px;
 }
 
-.refresh {
-    position: relative;
-    background-color: black;
-    color: white;
-    transition: 0.5s;
+.sandglass {
+    height: 40px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.refreshimg {
+    height: 50px;
+    width: auto;
+    bottom: 0px;
+    position: absolute;
     cursor: pointer;
-    margin-top: 300px;
+    transform: translate(-50%, -30%);
 }
 
 button:hover {
     background-color: white;
     color: black;
+}
+
+#button1 {
+    left: 2em;
+    position: absolute;
+    top: 2em;
+    cursor: pointer;
+}
+
+.toggle-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.toggle-button {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 35px;
+    margin: 0;
+    vertical-align: top;
+    background: #ffffff;
+    border: 1px solid #85c6b7;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.toggle-button::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 3px;
+    top: 1.5px;
+    width: 30px;
+    height: 30px;
+    background-color: #85c6b7;
+    border-radius: 50%;
+    transition: all 1s cubic-bezier(0.2, 0.85, 0.32, 1.2);
+    transform: translateX(0);
+}
+
+.toggle-button:checked::after {
+    transform: translateX(calc(100% + 3px));
+    background-color: #fff;
+}
+
+.toggle-button:checked {
+    background-color: #85c6b7;
 }
