@@ -6,6 +6,7 @@ body {
     place-items: center;
     display: grid;
     color: white;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .canvas {
@@ -30,20 +31,19 @@ body {
 }
 
 .diamond {
-    height: 32px;
+    height: 40px;
+    padding-top: 30px;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
-    padding-top: 20px;
 }
 
 .sandglass {
     height: 40px;
+    width: 50%;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
 }
 
 .refreshimg {
@@ -108,4 +108,9 @@ button:hover {
 
 .toggle-button:checked {
     background-color: #85c6b7;
+}
+
+mark {
+    background: transparent;
+    color: white;
 }

@@ -39,6 +39,16 @@ function drawIt() {
     var intTimer;
     var izpisTimer;
 
+    var pickaxe = new Image();
+    pickaxe.src = "images/pickaxe.png"
+    var pickaxe1 = new Image();
+    pickaxe1.src = "images/pickaxe1.png"
+
+    var brick = new Image();
+    brick.src = "images/diamond.png";
+    var miner = new Image();
+    miner.src = "images/miner.png";
+
     function init() {
         ctx = $('#canvas')[0].getContext("2d");
         WIDTH = $("#canvas").width();
@@ -54,13 +64,11 @@ function drawIt() {
         izpisTimer = "00:00";
     }
 
-    function circle(x, y, r) {
+    function circle() {
         ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2, true);
+        ctx.drawImage(pickaxe, x - r * 1.5, y - r * 1.5, r * 2 * 1.5, r * 2 * 1.5);
         ctx.closePath();
         ctx.fill();
-        ctx.fillStyle = "black";
-
     }
 
     function rect(x, y, w, h) {
@@ -70,14 +78,19 @@ function drawIt() {
         ctx.fill();
     }
 
+
+
     function clear() {
         ctx.clearRect(0, 0, WIDTH, HEIGHT);
     }
+
+
     //END LIBRARY CODE
 
     function draw() {
         clear();
         circle(x, y, 10);
+
         //premik ploščice levo in desno
         if (rightDown) {
             if ((paddlex + paddlew) < WIDTH) {
@@ -93,17 +106,17 @@ function drawIt() {
             }
         }
 
-        rect(paddlex, HEIGHT - paddleh, paddlew, paddleh);
+        ctx.drawImage(miner, paddlex, HEIGHT - paddleh, paddlew, paddleh);
 
 
         //riši opeke
         for (i = 0; i < NROWS; i++) {
-            if (i == 0) ctx.fillStyle = "#fc03ec ";
+            if (i == 0)
+                ctx.fillStyle = " ";
             for (j = 0; j < NCOLS; j++) {
                 if (bricks[i][j] == 1) {
-                    rect((j * (BRICKWIDTH + PADDING)) + PADDING,
-                        (i * (BRICKHEIGHT + PADDING)) + PADDING,
-                        BRICKWIDTH, BRICKHEIGHT);
+                    ctx.drawImage(brick, (j * (BRICKWIDTH + PADDING)) + PADDING, (i * (BRICKHEIGHT + PADDING)) + PADDING, BRICKWIDTH, BRICKHEIGHT);
+
                 }
             }
         }
@@ -163,7 +176,7 @@ function drawIt() {
     function gameover() {
         clear();
         ctx.fillStyle = "white";
-        ctx.font = "bold 60px sans-serif";
+        ctx.font = " 60px 'Courier New', Courier, monospace";
         ctx.fillText("YOU FAILED!", WIDTH / 2 - 200, HEIGHT / 2);
         start = true;
         clearInterval(intTimer);
@@ -175,15 +188,19 @@ function drawIt() {
     function gamewon() {
         clear();
         ctx.fillStyle = "white";
-        ctx.font = "bold 60px sans-serif";
+        ctx.font = " 60px 'Courier New', Courier, monospace";
         ctx.fillText("NICE JOB!", WIDTH / 2 - 200, HEIGHT / 2);
         start = true;
+        clearInterval(intTimer);
+        paddlex = -100;
+        paddlew = 0;
+        paddleh = 0;
     }
 
     function init_paddle() {
         paddlex = WIDTH / 2;
-        paddleh = 10;
-        paddlew = 75;
+        paddleh = 70;
+        paddlew = 50;
 
     }
 
@@ -203,11 +220,11 @@ function drawIt() {
     $(document).keyup(onKeyUp);
 
     function initbricks() { //inicializacija opek - polnjenje v tabelo
-        NROWS = 5;
-        NCOLS = 5;
-        BRICKWIDTH = (WIDTH / NCOLS) - 1;
-        BRICKHEIGHT = 15;
-        PADDING = 1;
+        NROWS = 3;
+        NCOLS = 7;
+        BRICKWIDTH = (WIDTH / NCOLS) - 2;
+        BRICKHEIGHT = 40;
+        PADDING = 2;
         bricks = new Array(NROWS);
         for (i = 0; i < NROWS; i++) {
             bricks[i] = new Array(NCOLS);
