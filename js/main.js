@@ -1,6 +1,9 @@
 function refreshPage() {
     window.location.reload();
 }
+var lifes = 3;
+var intTimer;
+var dilan;
 
 function drawIt() {
     var x = 150;
@@ -23,7 +26,6 @@ function drawIt() {
     var BRICKHEIGHT;
     var PADDING;
     var tocke; //deklaracija spremenljivke
-    var dilan;
     var colors = ["#fc03ec", "black"];
     var start = true;
     var temp;
@@ -36,9 +38,7 @@ function drawIt() {
     var sekunde;
     var sekundeI;
     var minuteI;
-    var intTimer;
     var izpisTimer;
-
     var pickaxe = new Image();
     pickaxe.src = "images/pickaxe.png"
     var pickaxe1 = new Image();
@@ -46,6 +46,7 @@ function drawIt() {
 
     var brick = new Image();
     brick.src = "images/diamond.png";
+
     var miner = new Image();
     miner.src = "images/miner.png";
 
@@ -53,7 +54,7 @@ function drawIt() {
         ctx = $('#canvas')[0].getContext("2d");
         WIDTH = $("#canvas").width();
         HEIGHT = $("#canvas").height();
-        dilan = setInterval(draw, 10);
+        dilan = setInterval(draw, 15);
         // dodajanje kode v metodo init
         tocke = 0;
         $("#tocke").html(tocke);
@@ -129,8 +130,10 @@ function drawIt() {
             dy = -dy;
             bricks[row][col] = 0;
             tocke += 1;
-            if (tocke >= 25) {
+            if (tocke >= 21) {
                 gameWin = true;
+                clearInterval(intTimer);
+                clearInterval(dilan);
             }
             $("#tocke").html(tocke);
         }
@@ -144,12 +147,29 @@ function drawIt() {
                 dx = 8 * ((x - (paddlex + paddlew / 2)) / paddlew);
                 dy = -dy;
             } else {
-                start = false;
+                lifes--;
+                $("#lives").html(lifes);
+                if (lifes == 0) {
+                    start = false;
+                    gameover();
+                    $(document).off("keydown");
+                    $(document).off("keyup");
+                    $(document).off("keypress");
+                    $(document).off("mousemove");
+                    $(document).off("click");
+                    clearInterval(intTimer);
+                    clearInterval(dilan);
 
-                gover = false;
+                    dx = 0;
+                    dy = 0;
+                } else {
+
+                    dy = -dy;
+
+                }
+
             }
         }
-
         x += dx;
         y += dy;
 
@@ -157,39 +177,29 @@ function drawIt() {
             gamewon();
 
         }
-        if (start == false) {
-            gameover();
-            $(document).off("keydown");
-            $(document).off("keyup");
-            $(document).off("keypress");
-            $(document).off("mousemove");
-            $(document).off("click");
-            dx = 0;
-            dy = 0;
 
-
-        }
 
 
     }
+
+
 
     function gameover() {
         clear();
         ctx.fillStyle = "white";
         ctx.font = " 60px 'Courier New', Courier, monospace";
-        ctx.fillText("YOU FAILED!", WIDTH / 2 - 200, HEIGHT / 2);
+        ctx.fillText("YOU FAILED", WIDTH / 2 - 180, HEIGHT / 2);
+        ctx.fillText("TRY AGAIN!", WIDTH / 2 - 170, HEIGHT / 1.5)
+
         start = true;
         clearInterval(intTimer);
-        paddlex = -100;
-        paddlew = 0;
-        paddleh = 0;
     }
 
     function gamewon() {
         clear();
         ctx.fillStyle = "white";
         ctx.font = " 60px 'Courier New', Courier, monospace";
-        ctx.fillText("NICE JOB!", WIDTH / 2 - 200, HEIGHT / 2);
+        ctx.fillText("NICE JOB!", WIDTH / 2 - 150, HEIGHT / 2);
         start = true;
         clearInterval(intTimer);
         paddlex = -100;
@@ -199,7 +209,7 @@ function drawIt() {
 
     function init_paddle() {
         paddlex = WIDTH / 2;
-        paddleh = 70;
+        paddleh = 50;
         paddlew = 50;
 
     }

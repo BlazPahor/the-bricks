@@ -46,6 +46,14 @@ body {
     margin-right: auto;
 }
 
+.lives {
+    height: 40px;
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .refreshimg {
     height: 50px;
     width: auto;
